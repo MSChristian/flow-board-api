@@ -28,7 +28,7 @@ public class UserCreatedNotificationSender {
 
     private static Notification buildUserNotification(UserCreatedEvent userEvent) {
         String title = "User created";
-        String content = "An user was created with following email" + userEvent.user().email();
+        String content = "An user was created with following email" + userEvent.email();
         return Notification.userNotification(title, content);
     }
 }

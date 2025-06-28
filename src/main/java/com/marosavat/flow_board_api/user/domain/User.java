@@ -8,7 +8,8 @@ public record User(
         UUID id,
         String name,
         String surname,
-        String email
+        String email,
+        String password
 ) {
     public User {
         if (id == null) {

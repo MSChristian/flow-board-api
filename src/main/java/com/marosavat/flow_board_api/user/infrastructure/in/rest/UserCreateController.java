@@ -16,7 +16,7 @@ public class UserCreateController {
     private final UserCreator userCreator;
 
     @PostMapping
-    public User createUser(@RequestBody  User user) {
+    public User createUser(@RequestBody User user) {
         return userCreator.createUser(user);
     }
 }

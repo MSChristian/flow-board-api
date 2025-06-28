@@ -31,11 +31,15 @@ public class UserJpaEntity {
     @Column(nullable = false, unique = true)
     private String email;
 
+    @Column(nullable = false)
+    private String password;
+
 
     public UserJpaEntity(User user) {
         this.id = user.id();
         this.name = user.name();
         this.surname = user.surname();
         this.email = user.email();
+        this.password = user.password();
     }
 }
