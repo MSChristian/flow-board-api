@@ -20,7 +20,7 @@ public class UserCreatedNotificationSender {
 
     @Transactional
     public void execute(UserCreatedEvent userEvent) {
-        log.info("[User] Sending notification to user");
+        log.info("[Notification] Sending notification to user");
         Notification notification = buildUserNotification(userEvent);
         notificationRepository.save(notification);
         eventPublisher.publishEvent(new NotificationSentEvent(notification));
