@@ -31,13 +31,17 @@ public class NotificationJpaEntity {
     @Column(nullable = false)
     private NotificationType type;
 
+    @Column(nullable = false)
+    private String recipient;
+
     public NotificationJpaEntity(Notification notification) {
         this.title = notification.title();
         this.content = notification.content();
         this.type = notification.type();
+        this.recipient = notification.recipient();
     }
 
     public Notification toDomain() {
-        return new Notification(title, content, type);
+        return new Notification(title, content, type, recipient);
     }
 }

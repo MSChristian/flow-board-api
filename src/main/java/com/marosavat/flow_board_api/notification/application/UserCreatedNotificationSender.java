@@ -2,6 +2,7 @@ package com.marosavat.flow_board_api.notification.application;
 
 import com.marosavat.flow_board_api.notification.domain.Notification;
 import com.marosavat.flow_board_api.notification.domain.NotificationRepository;
+import com.marosavat.flow_board_api.notification.domain.NotificationSender;
 import com.marosavat.flow_board_api.notification.domain.event.NotificationSentEvent;
 import com.marosavat.flow_board_api.user.domain.event.UserCreatedEvent;
 import lombok.RequiredArgsConstructor;
@@ -17,18 +18,20 @@ public class UserCreatedNotificationSender {
 
     private final NotificationRepository notificationRepository;
     private final ApplicationEventPublisher eventPublisher;
+    private final NotificationSender notificationSender;
 
     @Transactional
     public void execute(UserCreatedEvent userEvent) {
         log.info("[Notification] Sending notification to user");
         Notification notification = buildUserNotification(userEvent);
         notificationRepository.save(notification);
+        notificationSender.send(notification);
         eventPublisher.publishEvent(new NotificationSentEvent(notification));
     }
 
     private static Notification buildUserNotification(UserCreatedEvent userEvent) {
         String title = "User created";
-        String content = "An user was created with following email" + userEvent.email();
-        return Notification.userNotification(title, content);
+        String content = "An user was created with following email " + userEvent.email();
+        return Notification.userNotification(title, content, userEvent.email());
     }
 }
